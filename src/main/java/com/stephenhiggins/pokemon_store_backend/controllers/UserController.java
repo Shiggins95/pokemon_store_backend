@@ -41,8 +41,8 @@ public class UserController {
 
   @Transactional
   @CrossOrigin(origins = {prodOrigin, devOrigin})
-  @PostMapping(value = "/new_user")
-  public JSONObject logUserIn(
+  @PostMapping(value = "/create")
+  public JSONObject createUser(
       @RequestBody JSONObject userBody, @RequestHeader("Authorization") String auth)
       throws NoSuchAlgorithmException {
 
@@ -51,7 +51,6 @@ public class UserController {
     User searchUser = userRepo.findByEmail(email);
     User user;
     DateTime dateNow = new DateTime();
-    //    DateTime expiryDate = new DateTime().withHourOfDay(expiryHour);
     DateTime expiryDate = new DateTime().plusHours(1);
 
     if (searchUser == null) {
@@ -59,22 +58,33 @@ public class UserController {
       userRepo.save(user);
       return CreationHelper.buildSuccessfulLoginObject(user, dateNow, expiryDate);
     } else {
-      //      JSONObject valid = JwtGenerator.verifyToken(auth);
-      //        // System.out.println("VALID: " + valid.getAsString("verified"));
-      //      if (Boolean.valueOf(valid.getAsString("verified")) == true) {
+      return CreationHelper.buildFailureLoginObject("User Exists");
+    }
+  }
+
+  @CrossOrigin(origins = {devOrigin, prodOrigin})
+  @PostMapping(value = "/login")
+  public JSONObject login(@RequestBody JSONObject userBody) throws NoSuchAlgorithmException {
+    String email = userBody.getAsString("email");
+    String password = userBody.getAsString("password");
+    User searchUser = userRepo.findByEmail(email);
+    User user;
+    DateTime dateNow = new DateTime();
+    DateTime expiryDate = new DateTime().plusHours(1);
+    if (searchUser == null) {
+      System.out.println("WRONG EMAIL");
+      return CreationHelper.buildFailureLoginObject("Incorrect Email");
+    } else {
       String hash = Crypto.hash(password, searchUser.getSalt());
       if (hash.equals(searchUser.getHash())) {
         user = searchUser;
         userRepo.save(user);
         System.out.println("SUCCESSFUL LOGIN");
         return CreationHelper.buildSuccessfulLoginObject(user, dateNow, expiryDate);
+      } else {
+        System.out.println("INCORRECT PASSWORD");
+        return CreationHelper.buildFailureLoginObject("Incorrect Password");
       }
-      System.out.println("FAILED LOGIN");
-      return CreationHelper.buildFailureLoginObject("PASSWORD INCORRECT");
-
-      //      } else {
-      //        return CreationHelper.buildFailureLoginObject(valid.getAsString("error"));
-      //      }
     }
   }
 

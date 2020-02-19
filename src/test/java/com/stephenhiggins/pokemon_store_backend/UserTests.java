@@ -42,7 +42,15 @@ public class UserTests {
 
   @Test
   public void canAddProduct() throws NoSuchAlgorithmException {
-    Product product = new Product("Product 1", "This is product 1", 1.99, "Legend", 100, "https://image.ibb.co/kVtAiz/darkraithumb.png");
+    Product product =
+        new Product(
+            "Product 1",
+            "This is product 1",
+            1.99,
+            "Legend",
+            100,
+            "https://image.ibb" + ".co/kVtAiz/darkraithumb.png",
+            "");
     User user = new User("stephen.higgins@email.com", "Password123");
 
     user.addToProducts(product);

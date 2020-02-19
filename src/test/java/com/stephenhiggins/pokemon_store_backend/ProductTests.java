@@ -2,6 +2,7 @@ package com.stephenhiggins.pokemon_store_backend;
 
 import com.stephenhiggins.pokemon_store_backend.models.Product;
 import com.stephenhiggins.pokemon_store_backend.models.User;
+import net.minidev.json.JSONArray;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,7 +16,15 @@ public class ProductTests {
 
   @Before
   public void setup() throws NoSuchAlgorithmException {
-    product = new Product("Product 1", "This is product 1", 1.99, "Legend", 100, "https://image.ibb.co/kVtAiz/darkraithumb.png");
+    product =
+        new Product(
+            "Product 1",
+            "This is product 1",
+            1.99,
+            "Legend",
+            100,
+            "https://image.ibb" + ".co/kVtAiz/darkraithumb.png",
+            "");
     user = new User("stephen.higgins@email.com", "Password123");
   }
 

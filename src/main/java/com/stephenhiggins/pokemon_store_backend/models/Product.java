@@ -1,6 +1,7 @@
 package com.stephenhiggins.pokemon_store_backend.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import net.minidev.json.JSONArray;
 
 import javax.persistence.*;
 
@@ -12,25 +13,32 @@ public class Product {
   private Long id;
 
   @Column private String name;
-  @Column private String description;
+  @Column(length = 2000) private String description;
   @Column private double price;
   @Column private String type;
   @Column private int quantity;
   @Column private String img;
-
+  @Column(length = 2000) private String images;
   //  @JsonIgnoreProperties(value = "products")
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id")
   private User user;
 
   public Product(
-      String name, String description, double price, String type, int quantity, String img) {
+      String name,
+      String description,
+      double price,
+      String type,
+      int quantity,
+      String img,
+      String images) {
     this.name = name;
     this.description = description;
     this.price = price;
     this.type = type;
     this.quantity = quantity;
     this.img = img;
+    this.images = images;
   }
 
   public Product() {}
@@ -97,5 +105,13 @@ public class Product {
 
   public void setUser(User user) {
     this.user = user;
+  }
+
+  public String getImages() {
+    return images;
+  }
+
+  public void setImages(String images) {
+    this.images = images;
   }
 }

@@ -7,7 +7,9 @@ import com.stripe.model.Customer;
 import net.minidev.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -16,26 +18,42 @@ public class PaymentController {
 
   private final String prodOrigin = "http://192.168.0.2:3000";
   private final String devOrigin = "http://localhost:3000";
-
+  // TODO - make users an inherited class of admin and customer. Add customer id to customers when
+  // payment is made
   @CrossOrigin(origins = {prodOrigin, devOrigin})
   @PostMapping(value = "/pay")
   public String pay(@RequestBody JSONObject body) throws StripeException {
     Stripe.apiKey = "sk_test_ptrilgY8VaHZpbahZgEYAolX00zx0tpUn2";
     Integer price = Integer.valueOf(body.getAsString("price"));
     String email = body.getAsString("email");
+    Map<String, Object> options = new HashMap<>();
+    options.put("email", email);
+    List<Customer> customers = Customer.list(options).getData();
     Map<String, String> card = (HashMap) body.get("card");
-    String method = card.get("id");
     String id = body.getAsString("id");
-    Map<String, Object> customerParams = new HashMap<>();
-    customerParams.put("email", email);
-    customerParams.put("source", id);
-    Customer customer = Customer.create(customerParams);
 
+    // customer details
+    Map<String, Object> customerParams = new HashMap<>();
+    List<HashMap> items = (ArrayList) body.get("ya_boys_products");
+    HashMap<String, String> address = (HashMap) body.get("address");
+    customerParams.put("email", email);
+
+    Customer customer;
+    if (customers.size() > 0) {
+      customer = Customer.retrieve(customers.get(0).getId());
+      System.out.println("CUSTOMER ID: " + customers.get(0).getId());
+      customer.update(customerParams);
+    } else {
+      System.out.println("NO CUSTOMER FOUND");
+      customer = Customer.create(customerParams);
+    }
+
+    // charge details
     Map<String, Object> params = new HashMap<>();
     params.put("amount", price);
     params.put("currency", "gbp");
     params.put("description", "My First Test Charge (created for API docs)");
-    params.put("receipt_email", "stephen.higgins1995@gmail.com");
+    params.put("receipt_email", email);
     params.put("customer", customer.getId());
 
     Charge charge = Charge.create(params);

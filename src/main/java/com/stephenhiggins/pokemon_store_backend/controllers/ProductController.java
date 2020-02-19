@@ -4,6 +4,7 @@ import com.stephenhiggins.pokemon_store_backend.models.Product;
 import com.stephenhiggins.pokemon_store_backend.models.User;
 import com.stephenhiggins.pokemon_store_backend.repos.ProductRepo;
 import com.stephenhiggins.pokemon_store_backend.repos.UserRepo;
+import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +25,14 @@ public class ProductController {
   @Transactional
   @CrossOrigin(origins = {prodOrigin, devOrigin})
   @GetMapping(value = "/")
-  public List<Product> getAllUsers() {
+  public List<Product> getAllProducts() {
     return productRepo.findAll();
+  }
+
+  @CrossOrigin(origins = {prodOrigin, devOrigin})
+  @GetMapping(value = "/{id}")
+  public Product getAllUsers(@PathVariable Long id) {
+    return productRepo.getOne(id);
   }
 
   @Transactional
@@ -38,8 +45,9 @@ public class ProductController {
     String type = body.getAsString("type");
     int quantity = Integer.valueOf(body.getAsString("quantity"));
     String img = body.getAsString("img");
+    JSONArray images = (JSONArray) body.get("images");
     User user = userRepo.getOne(Long.valueOf(body.getAsString("userId")));
-    Product product = new Product(name, description, price, type, quantity, img);
+    Product product = new Product(name, description, price, type, quantity, img, images.toString());
     user.addToProducts(product);
     productRepo.save(product);
     userRepo.save(user);

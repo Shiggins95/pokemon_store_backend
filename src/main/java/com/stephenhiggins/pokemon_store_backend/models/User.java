@@ -20,7 +20,7 @@ public class User {
   @Column private String hash;
 
   @JsonIgnoreProperties(value = "user")
-  @OneToMany(mappedBy = "user")
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   private List<Product> products;
 
   public User(String email, String password) throws NoSuchAlgorithmException {

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,7 +20,7 @@ public class ProductController {
   @Autowired UserRepo userRepo;
   @Autowired ProductRepo productRepo;
 
-  private final String prodOrigin = "https://pokemonstorereact.herokuapp.com/";
+  private final String prodOrigin = "https://pokemonstorereact.herokuapp.com";
   private final String devOrigin = "http://localhost:3000";
 
   @Transactional
@@ -45,7 +46,11 @@ public class ProductController {
     String type = body.getAsString("type");
     int quantity = Integer.valueOf(body.getAsString("quantity"));
     String img = body.getAsString("img");
-    JSONArray images = (JSONArray) body.get("images");
+    JSONArray images = new JSONArray();
+    ArrayList<String> imagesList = (ArrayList<String>) body.get("images");
+    for (String image : imagesList) {
+      images.appendElement(image);
+    }
     User user = userRepo.getOne(Long.valueOf(body.getAsString("userId")));
     Product product = new Product(name, description, price, type, quantity, img, images.toString());
     user.addToProducts(product);

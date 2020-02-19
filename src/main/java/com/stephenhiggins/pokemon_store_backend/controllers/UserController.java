@@ -18,7 +18,7 @@ import java.util.List;
 public class UserController {
 
   @Autowired UserRepo userRepo;
-  private final String prodOrigin = "https://pokemonstorereact.herokuapp.com/";
+  private final String prodOrigin = "https://pokemonstorereact.herokuapp.com";
   private final String devOrigin = "http://localhost:3000";
 
   @Transactional

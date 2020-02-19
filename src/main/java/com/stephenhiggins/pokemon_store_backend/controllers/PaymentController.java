@@ -16,7 +16,7 @@ import java.util.Map;
 @RequestMapping(value = "/api/payment")
 public class PaymentController {
 
-  private final String prodOrigin = "https://pokemonstorereact.herokuapp.com/";
+  private final String prodOrigin = "https://pokemonstorereact.herokuapp.com";
   private final String devOrigin = "http://localhost:3000";
   // TODO - make users an inherited class of admin and customer. Add customer id to customers when
   // payment is made

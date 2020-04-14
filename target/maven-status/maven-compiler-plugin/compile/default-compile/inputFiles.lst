@@ -1,0 +1,12 @@
+/Users/stephenhiggins/myProjects/pokemon_store_backend/src/main/java/com/stephenhiggins/pokemon_store_backend/controllers/ProductController.java
+/Users/stephenhiggins/myProjects/pokemon_store_backend/src/main/java/com/stephenhiggins/pokemon_store_backend/components/UserLoader.java
+/Users/stephenhiggins/myProjects/pokemon_store_backend/src/main/java/com/stephenhiggins/pokemon_store_backend/repos/ProductRepo.java
+/Users/stephenhiggins/myProjects/pokemon_store_backend/src/main/java/com/stephenhiggins/pokemon_store_backend/controllers/PaymentController.java
+/Users/stephenhiggins/myProjects/pokemon_store_backend/src/main/java/com/stephenhiggins/pokemon_store_backend/repos/UserRepo.java
+/Users/stephenhiggins/myProjects/pokemon_store_backend/src/main/java/com/stephenhiggins/pokemon_store_backend/models/User.java
+/Users/stephenhiggins/myProjects/pokemon_store_backend/src/main/java/com/stephenhiggins/pokemon_store_backend/controllers/UserController.java
+/Users/stephenhiggins/myProjects/pokemon_store_backend/src/main/java/com/stephenhiggins/pokemon_store_backend/PokemonStoreBackendApplication.java
+/Users/stephenhiggins/myProjects/pokemon_store_backend/src/main/java/com/stephenhiggins/pokemon_store_backend/helpers/CreationHelper.java
+/Users/stephenhiggins/myProjects/pokemon_store_backend/src/main/java/com/stephenhiggins/pokemon_store_backend/models/JwtGenerator.java
+/Users/stephenhiggins/myProjects/pokemon_store_backend/src/main/java/com/stephenhiggins/pokemon_store_backend/helpers/Crypto.java
+/Users/stephenhiggins/myProjects/pokemon_store_backend/src/main/java/com/stephenhiggins/pokemon_store_backend/models/Product.java

@@ -1,5 +1,6 @@
 HELP.md
 target/
+/pgdata/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**

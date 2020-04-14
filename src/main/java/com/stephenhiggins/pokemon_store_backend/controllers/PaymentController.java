@@ -16,11 +16,11 @@ import java.util.Map;
 @RequestMapping(value = "/api/payment")
 public class PaymentController {
 
-  private final String prodOrigin = "https://pokemonstorereact.herokuapp.com";
+  private final String prodOriginHeroku = "https://pokemonstorereact.herokuapp.com";
+  private final String prodOrigin = "http://139.162.211.53:3000";
   private final String devOrigin = "http://localhost:3000";
-  // TODO - make users an inherited class of admin and customer. Add customer id to customers when
-  // payment is made
-  @CrossOrigin(origins = {prodOrigin, devOrigin})
+
+  @CrossOrigin(origins = {prodOrigin, devOrigin, prodOriginHeroku})
   @PostMapping(value = "/pay")
   public String pay(@RequestBody JSONObject body) throws StripeException {
     Stripe.apiKey = "sk_test_ptrilgY8VaHZpbahZgEYAolX00zx0tpUn2";

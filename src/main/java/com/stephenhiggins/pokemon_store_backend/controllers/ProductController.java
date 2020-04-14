@@ -20,24 +20,25 @@ public class ProductController {
   @Autowired UserRepo userRepo;
   @Autowired ProductRepo productRepo;
 
-  private final String prodOrigin = "https://pokemonstorereact.herokuapp.com";
+  private final String prodOriginHeroku = "https://pokemonstorereact.herokuapp.com";
+  private final String prodOrigin = "http://139.162.211.53:3000";
   private final String devOrigin = "http://localhost:3000";
 
   @Transactional
-  @CrossOrigin(origins = {prodOrigin, devOrigin})
+  @CrossOrigin(origins = {prodOrigin, devOrigin, prodOriginHeroku})
   @GetMapping(value = "/")
   public List<Product> getAllProducts() {
     return productRepo.findAll();
   }
 
-  @CrossOrigin(origins = {prodOrigin, devOrigin})
+  @CrossOrigin(origins = {prodOrigin, devOrigin, prodOriginHeroku})
   @GetMapping(value = "/{id}")
   public Product getAllUsers(@PathVariable Long id) {
     return productRepo.getOne(id);
   }
 
   @Transactional
-  @CrossOrigin(origins = {prodOrigin, devOrigin})
+  @CrossOrigin(origins = {prodOrigin, devOrigin, prodOriginHeroku})
   @PostMapping(value = "/new_product")
   public Product createNewProduct(@RequestBody JSONObject body) {
     String name = body.getAsString("name");

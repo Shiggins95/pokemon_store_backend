@@ -18,11 +18,13 @@ import java.util.List;
 public class UserController {
 
   @Autowired UserRepo userRepo;
-  private final String prodOrigin = "https://pokemonstorereact.herokuapp.com";
+
+  private final String prodOriginHeroku = "https://pokemonstorereact.herokuapp.com";
+  private final String prodOrigin = "http://139.162.211.53:3000";
   private final String devOrigin = "http://localhost:3000";
 
   @Transactional
-  @CrossOrigin(origins = {prodOrigin, devOrigin})
+  @CrossOrigin(origins = {prodOrigin, devOrigin, prodOriginHeroku})
   @DeleteMapping(value = "/delete_all")
   public JSONObject deleteAllUsers() {
     System.out.println("deleting");
@@ -33,14 +35,14 @@ public class UserController {
   }
 
   @Transactional
-  @CrossOrigin(origins = {prodOrigin, devOrigin})
+  @CrossOrigin(origins = {prodOrigin, devOrigin, prodOriginHeroku})
   @GetMapping(value = "/")
   public List<User> getAllUsers() {
     return userRepo.findAll();
   }
 
   @Transactional
-  @CrossOrigin(origins = {prodOrigin, devOrigin})
+  @CrossOrigin(origins = {prodOrigin, devOrigin, prodOriginHeroku})
   @PostMapping(value = "/create")
   public JSONObject createUser(
       @RequestBody JSONObject userBody, @RequestHeader("Authorization") String auth)
@@ -62,7 +64,7 @@ public class UserController {
     }
   }
 
-  @CrossOrigin(origins = {devOrigin, prodOrigin})
+  @CrossOrigin(origins = {devOrigin, prodOrigin, prodOriginHeroku})
   @PostMapping(value = "/login")
   public JSONObject login(@RequestBody JSONObject userBody) throws NoSuchAlgorithmException {
     String email = userBody.getAsString("email");
@@ -89,7 +91,7 @@ public class UserController {
   }
 
   @Transactional
-  @CrossOrigin(origins = {prodOrigin, devOrigin})
+  @CrossOrigin(origins = {prodOrigin, devOrigin, prodOriginHeroku})
   @PutMapping(value = "change_pw_fli")
   public JSONObject changePasswordFromLoggedInStatus(@RequestBody JSONObject userInfo)
       throws NoSuchAlgorithmException {

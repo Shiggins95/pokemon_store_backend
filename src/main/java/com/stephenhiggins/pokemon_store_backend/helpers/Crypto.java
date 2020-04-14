@@ -9,13 +9,7 @@ public class Crypto {
 
   public static String hash(String data, byte[] salt) throws NoSuchAlgorithmException {
     String sha256 = "SHA-256";
-    //    System.out.println("SALT: " + salt);
-    //        String md5 = "MD5";
-    //        byte[] md5Salt = generateSalt();
     String sha256Hash = generateHash(data, sha256, salt);
-    //        String md5Hash = generateHash(data, md5, md5Salt);
-    //    System.out.println(sha256Hash);
-    //        System.out.println(md5Hash);
     return sha256Hash;
   }
 

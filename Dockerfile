@@ -2,8 +2,6 @@ FROM openjdk:8-jdk-alpine
 # make new dir for dependancy and unpack the jar in it - cant do this on linux (lindoe) without java
 # -  so need to do here so it will create dependencies on the docker container that are required
 #RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
-
-RUN docker attach 2c293bfbd29e
 # add new user to separate from root
 RUN addgroup -S spring && adduser -S spring -G spring
 USER spring:spring

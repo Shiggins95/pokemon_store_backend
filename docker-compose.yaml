@@ -1,14 +1,26 @@
 version: "3.7"
 services:
+  pokemon_postgres:
+    image: postgres:alpine
+    container_name: pokemon_postgres
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=pokemonstore
+      - PGDATA=/var/lib/postgresql/data/pgdata
   web:
     build: .
     container_name: pokemonstore
     expose:
       - 8080
     ports:
-      - 8081:8080
+      - 8080:8080
+    depends_on:
+      - pokemon_postgres
     environment:
       - MYAPP_JDBC_USER=postgres
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres_container:5432/pokemon
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://pokemon_postgres:5432/pokemonstore?password=password
       - MYAPP_JDBC_PASS=postgres
-      - MYAPP_JDBC_HOST=postgres_container
+      - MYAPP_JDBC_HOST=pokemon_postgres

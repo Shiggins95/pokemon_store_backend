@@ -1,14 +1,14 @@
 HELP.md
 target/classes/
-target/generated-sources
-target/generated-test-sources
-target/maven-archiver
-target/maven-status
-target/test-classes
+target/generated-sources/
+target/generated-test-sources/
+target/maven-archiver/
+target/maven-status/
+target/test-classes/
+target/*.jar*
+target/dependency/org/
 /pgdata/
 !.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**
-!**/src/test/**
 
 ### STS ###
 .apt_generated
@@ -31,7 +31,4 @@ target/test-classes
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-
-### VS Code ###
-.vscode/
+/build/
